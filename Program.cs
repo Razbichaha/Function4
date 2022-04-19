@@ -3,12 +3,6 @@ using System.Threading;
 
 namespace Function4
 {
-//    Сделать игровую карту с помощью двумерного массива.
-//    Сделать функцию рисования карты.Помимо этого,
-//    дать пользователю возможность перемещаться по карте и взаимодействовать с элементами
-//    (например пользователь не может пройти сквозь стену)
-
-//Все элементы являются обычными символами
     class Program
     {
         static void Main(string[] args)
@@ -30,20 +24,27 @@ namespace Function4
            
             MapVisualization(CharMap);
 
-            int positionX = 1;//горизонт
-            int positionY = 1;//вертикал
-            int movX = 0;
-            int movY = 0;
-            int sleep = 100;
-
+            int positionX = 1;
+            int positionY = 1;
             char plaer = '@';
+            int startPosition = 0;
 
             Console.CursorVisible = false;
-            PlaerMovement(ref positionX, ref  positionY, movX, movY,plaer, CharMap);
+
+            PlaerMovement(ref positionX, ref  positionY, startPosition, startPosition,plaer, CharMap);
+            GameManagement(ref positionX, ref positionY, plaer, CharMap);
+            
+        }
+
+        static void GameManagement(ref int positionX, ref int positionY, char plaer, char[,] map)
+        {
+            int movementX ;
+            int movementY ;
+            int sleep = 300;
 
             while (true)
             {
-                if(Console.KeyAvailable)
+                if (Console.KeyAvailable)
                 {
                     ConsoleKeyInfo key = Console.ReadKey(true);
 
@@ -51,64 +52,56 @@ namespace Function4
                     {
                         case ConsoleKey.UpArrow:
 
-                            movY = -1; movX = 0;
-                            PlaerMovement(ref positionX, ref positionY, movX, movY, plaer, CharMap);
+                            movementY = -1; movementX = 0;
+                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                         case ConsoleKey.DownArrow:
 
-                            movY = 1;movX = 0;
-                            PlaerMovement(ref positionX, ref positionY, movX, movY, plaer, CharMap);
+                            movementY = 1; movementX = 0;
+                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                         case ConsoleKey.LeftArrow:
 
-                            movX = -1;movY = 0;
-                            PlaerMovement(ref positionX, ref positionY, movX, movY, plaer, CharMap);
+                            movementX = -1; movementY = 0;
+                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                         case ConsoleKey.RightArrow:
 
-                            movX = 1;movY = 0;
-                            PlaerMovement(ref positionX, ref positionY, movX, movY, plaer, CharMap);
+                            movementX = 1; movementY = 0;
+                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                     }
 
                 }
-               Thread.Sleep(sleep);
-              // Console.ReadKey();
+                Thread.Sleep(sleep);
             }
+
         }
 
-        static void PlaerMovement(ref int X, ref int Y, int movX, int movY, char plaer, char[,] map)
+        static void PlaerMovement(ref int positionX, ref int positionY, int movementX, int movementY, char plaer, char[,] map)
         {
-
-
-            Console.SetCursorPosition(X, Y);
+           
+            Console.SetCursorPosition(positionX, positionY);
             Console.Write(" ");
 
-            X += movX;
-            Y += movY;
-
+            positionX += movementX;
+            positionY += movementY;
+           
             char stopMovement = '#';
-            if(X<1)
-            { X = 1; }
 
-            if(Y<1)
-            { Y = 1; }
-
-            Console.SetCursorPosition(1, 13);///////
-            Console.Write("X=" + X + " Y=" + Y+" map="+"["+map[X,Y]+"]");//////
-
-            if (map[X,Y]!=stopMovement)
+            if (map[positionY,positionX]!=stopMovement)
             {
-                Console.SetCursorPosition(X, Y);
-                Console.Write(Y);
+                Console.SetCursorPosition(positionX, positionY);
+                Console.Write(plaer);
             }else
             {
-               
-                Console.SetCursorPosition(X-movX, Y-movY);
+                positionX -= movementX;
+                positionY -= movementY;
+                Console.SetCursorPosition(positionX,positionY );
                 Console.Write(plaer);
             }
 
@@ -120,11 +113,18 @@ namespace Function4
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-
                     Console.Write(map[i, j]);
                 }
                 Console.Write("\n");
             }
+
+            Console.WindowHeight = map.GetLength(0);
+            Console.WindowWidth = map.GetLength(1);
+
+            int bufferLimit = 1;
+            Console.BufferHeight = Console.WindowHeight+bufferLimit;
+            Console.BufferWidth = Console.WindowWidth+bufferLimit;
+
         }
 
         static char[,] CreateCharMap(string[,] map)
