@@ -27,11 +27,13 @@ namespace Function4
             int positionX = 1;
             int positionY = 1;
             char plaer = '@';
-            int startPosition = 0;
+           // int startPosition = 0;
 
             Console.CursorVisible = false;
 
-            MovePlaer(ref positionX, ref  positionY, startPosition, startPosition,plaer, сharMap);
+            //  MovePlaer(ref positionX, ref  positionY, startPosition, startPosition,plaer, сharMap);
+            Console.SetCursorPosition(positionX, positionY);
+            Console.Write(plaer);
             ControlOfGame(ref positionX, ref positionY, plaer, сharMap);
             
         }
@@ -89,26 +91,17 @@ namespace Function4
         static void MovePlaer(ref int positionX, ref int positionY, int movementX, int movementY, char plaer, char[,] map)
         {
            
-            Console.SetCursorPosition(positionX, positionY);
-            Console.Write(" ");
-
-            positionX += movementX;
-            positionY += movementY;
-           
             char stopMovement = '#';
 
-            if (map[positionY,positionX]!=stopMovement)
+            if (map[positionY+ movementY, positionX+ movementX] !=stopMovement)
             {
+                positionX += movementX;
+                positionY += movementY;
                 Console.SetCursorPosition(positionX, positionY);
                 Console.Write(plaer);
-            }else
-            {
-                positionX -= movementX;
-                positionY -= movementY;
-                Console.SetCursorPosition(positionX,positionY );
-                Console.Write(plaer);
+                Console.SetCursorPosition(positionX - movementX, positionY - movementY);
+                Console.Write(" ");
             }
-
         }
 
         static void VisualizeMap(char[,] map)
