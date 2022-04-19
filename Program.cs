@@ -26,19 +26,16 @@ namespace Function4
 
             int positionX = 1;
             int positionY = 1;
-            char plaer = '@';
-           // int startPosition = 0;
+            char player = '@';
 
             Console.CursorVisible = false;
-
-            //  MovePlaer(ref positionX, ref  positionY, startPosition, startPosition,plaer, сharMap);
             Console.SetCursorPosition(positionX, positionY);
-            Console.Write(plaer);
-            ControlOfGame(ref positionX, ref positionY, plaer, сharMap);
+            Console.Write(player);
+            ControlOfGame(ref positionX, ref positionY, player, сharMap);
             
         }
 
-        static void ControlOfGame(ref int positionX, ref int positionY, char plaer, char[,] map)
+        static void ControlOfGame(ref int positionX, ref int positionY, char player, char[,] map)
         {
             int movementX ;
             int movementY ;
@@ -56,25 +53,25 @@ namespace Function4
                         case ConsoleKey.UpArrow:
 
                             movementY = -1; movementX = 0;
-                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, player, map);
 
                             break;
                         case ConsoleKey.DownArrow:
 
                             movementY = 1; movementX = 0;
-                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, player, map);
 
                             break;
                         case ConsoleKey.LeftArrow:
 
                             movementX = -1; movementY = 0;
-                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, player, map);
 
                             break;
                         case ConsoleKey.RightArrow:
 
                             movementX = 1; movementY = 0;
-                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, player, map);
 
                             break;
                         case ConsoleKey.Escape:
@@ -88,19 +85,19 @@ namespace Function4
             }
         }
 
-        static void MovePlaer(ref int positionX, ref int positionY, int movementX, int movementY, char plaer, char[,] map)
+        static void MovePlaer(ref int positionX, ref int positionY, int movementX, int movementY, char player, char[,] map)
         {
            
             char stopMovement = '#';
 
             if (map[positionY+ movementY, positionX+ movementX] !=stopMovement)
             {
+                Console.SetCursorPosition(positionX, positionY);
+                Console.Write(" ");
                 positionX += movementX;
                 positionY += movementY;
                 Console.SetCursorPosition(positionX, positionY);
-                Console.Write(plaer);
-                Console.SetCursorPosition(positionX - movementX, positionY - movementY);
-                Console.Write(" ");
+                Console.Write(player);
             }
         }
 
