@@ -41,8 +41,9 @@ namespace Function4
             int movementX ;
             int movementY ;
             int sleep = 300;
+            bool isContinuedGame = true;
 
-            while (true)
+            while (isContinuedGame)
             {
                 if (Console.KeyAvailable)
                 {
@@ -72,6 +73,11 @@ namespace Function4
 
                             movementX = 1; movementY = 0;
                             MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
+
+                            break;
+                        case ConsoleKey.Escape:
+
+                            isContinuedGame = false;
 
                             break;
                     }
@@ -130,11 +136,11 @@ namespace Function4
             char[,] charMap= new char[map.GetLength(0), map[0, 0].Length];
             for (int i = 0; i < map.GetLength(0); i++)
             {
-                string tt = map[i, 0];
+                string tempString = map[i, 0];
 
-                for (int j = 0; j < tt.Length; j++)
+                for (int j = 0; j < tempString.Length; j++)
                 {
-                    charMap[i, j] = tt[j];
+                    charMap[i, j] = tempString[j];
                 }
             }
 
