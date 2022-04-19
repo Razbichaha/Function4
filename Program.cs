@@ -20,9 +20,9 @@ namespace Function4
                               {"#                                 #" },
                               {"###################################" }};
 
-            char[,] CharMap = CreateCharMap(map);
+            char[,] сharMap = CreateCharMap(map);
            
-            MapVisualization(CharMap);
+            VisualizeMap(сharMap);
 
             int positionX = 1;
             int positionY = 1;
@@ -31,12 +31,12 @@ namespace Function4
 
             Console.CursorVisible = false;
 
-            PlaerMovement(ref positionX, ref  positionY, startPosition, startPosition,plaer, CharMap);
-            GameManagement(ref positionX, ref positionY, plaer, CharMap);
+            MovePlaer(ref positionX, ref  positionY, startPosition, startPosition,plaer, сharMap);
+            ControlOfGame(ref positionX, ref positionY, plaer, сharMap);
             
         }
 
-        static void GameManagement(ref int positionX, ref int positionY, char plaer, char[,] map)
+        static void ControlOfGame(ref int positionX, ref int positionY, char plaer, char[,] map)
         {
             int movementX ;
             int movementY ;
@@ -53,25 +53,25 @@ namespace Function4
                         case ConsoleKey.UpArrow:
 
                             movementY = -1; movementX = 0;
-                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                         case ConsoleKey.DownArrow:
 
                             movementY = 1; movementX = 0;
-                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                         case ConsoleKey.LeftArrow:
 
                             movementX = -1; movementY = 0;
-                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                         case ConsoleKey.RightArrow:
 
                             movementX = 1; movementY = 0;
-                            PlaerMovement(ref positionX, ref positionY, movementX, movementY, plaer, map);
+                            MovePlaer(ref positionX, ref positionY, movementX, movementY, plaer, map);
 
                             break;
                     }
@@ -80,7 +80,7 @@ namespace Function4
             }
         }
 
-        static void PlaerMovement(ref int positionX, ref int positionY, int movementX, int movementY, char plaer, char[,] map)
+        static void MovePlaer(ref int positionX, ref int positionY, int movementX, int movementY, char plaer, char[,] map)
         {
            
             Console.SetCursorPosition(positionX, positionY);
@@ -105,7 +105,7 @@ namespace Function4
 
         }
 
-        static void MapVisualization(char[,] map)
+        static void VisualizeMap(char[,] map)
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
