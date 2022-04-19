@@ -75,11 +75,9 @@ namespace Function4
 
                             break;
                     }
-
                 }
                 Thread.Sleep(sleep);
             }
-
         }
 
         static void PlaerMovement(ref int positionX, ref int positionY, int movementX, int movementY, char plaer, char[,] map)
